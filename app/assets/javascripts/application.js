@@ -7,7 +7,6 @@ var HEIGHT = 16;
 var WIDTH = 16;
 var MINES = 40;
 var CELLS = HEIGHT * WIDTH;
-var FREECELLS = CELLS - MINES;
 var MINESCOUNT = MINES
 var GAMERUNNING = true;
 
@@ -275,6 +274,7 @@ $(function() {
     HEIGHT = parseInt(btn.match(/row-(\d+)/)[1],10);
     WIDTH  = parseInt(btn.match(/col-(\d+)/)[1],10);
     MINES  = parseInt(btn.match(/mines-(\d+)/)[1],10);
+    CELLS = HEIGHT * WIDTH;
     console.log(HEIGHT, WIDTH, MINES)
     MINESCOUNT = MINES
     GAMERUNNING = true;
@@ -288,5 +288,4 @@ $(function() {
     $('.settings-displayed').toggleClass('hidden');
     $('.game-displayed').toggleClass('hidden');
   });
-
 });
