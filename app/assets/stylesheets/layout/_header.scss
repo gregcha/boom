@@ -1,0 +1,15 @@
+.header {
+  border-bottom: 2px solid white;
+  background-color: $orange;
+}
+
+.header img {
+  width : 50px;
+  position: relative;
+  bottom: 14px;
+}
+
+.header h1 {
+  color: $yellow-light;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}

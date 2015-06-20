@@ -1,0 +1,48 @@
+<div class='game'>
+  <div class ="settings-displayed hidden">
+    <div class='settings-button text-center'>
+      <i class="fa fa-times"></i>
+    </div>
+    <div class='text-center' id='settings-header'>
+      <p>Select level</p>
+    </div>
+    <div id="level">
+      <div class='text-center'>
+          <button class='new-settings row-9 col-9 mines-10'>Beginner</button>
+          <button class='new-settings row-16 col-16 mines-40'>Intermediate</button>
+          <button class='new-settings row-16 col-30 mines-99'>Expert</button>
+      </div>
+    </div>
+    <div class='text-center' id='settings-footer'>
+      <p>made by <%= link_to '@gregcha', 'https://twitter.com/gregcha', target:'blank' %></p>
+    </div>
+  </div>
+
+  <div class='game-displayed'>
+    <div class='settings-button text-center'>
+      <i class="fa fa-cog"></i>
+    </div>
+    <div class='text-center' id='play'>
+      <div class='new-game' id='smiley'></div>
+    </div>
+    <table id="minesweeper"></table>
+    <div id='status-bar'>
+      <div id='bomb'>
+        <ul class='list-inline'>
+          <li><i class="fa fa-bomb"></i></li>
+          <li><p class='minescount'></p></li>
+        </ul>
+      </div>
+      <div id='clock'>
+        <ul class='list-inline'>
+          <li><p id='time'>00:00</p></li>
+          <li><i class="fa fa-clock-o"></i></li>
+        </ul>
+      </div>
+      <div class='clear'></div>
+    </div>
+  </div>
+
+</div>
+
+

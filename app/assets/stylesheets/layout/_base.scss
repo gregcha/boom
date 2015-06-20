@@ -1,0 +1,30 @@
+/* -------------------------------------
+ * Base elements style (h1, h2, p, a, ul..)
+ * ============= IMPORTANT =============
+ * Before writing in this file, look if there is not
+ * already a Bootstrap SCSS variable that does the same job
+ * ------------------------------------- */
+
+body {
+  background-color: #EAEBEB;
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+  font-weight: 700;
+  color: #5D5E65;
+}
+
+p {
+  font-weight: 400;
+  color: $yellow-dark;
+  margin: 0px;
+}
+
+ul {
+  margin: 0px;
+}
+
+.container {
+  width:100%;
+}

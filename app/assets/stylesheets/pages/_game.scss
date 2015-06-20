@@ -1,0 +1,154 @@
+.game {
+  position: relative;
+  top: 30px;
+  margin: auto;
+}
+
+.settings-button {
+  position: absolute;
+  right: -15px;
+  top:-15px;
+  padding: 0.2em;
+  background-color: #C8C8C8;
+  border-radius: 50%;
+  border: 4px solid #F6F6F6;
+  &:hover {
+    background-color: #7E827D;
+    cursor: pointer;
+  }
+  & .fa.fa-cog {
+    color: white;
+    margin: 4px;
+    width: 20px;
+  }
+  & .fa.fa-times {
+    color: white;
+    margin: 4px;
+    width: 20px;
+  }
+}
+
+#settings-header {
+  padding : 14px;
+  background-color: #F6F6F6;
+  border: 4px solid white;
+  & p {
+    color: #7E827D;
+  }
+}
+
+#level {
+  margin: auto;
+  margin: 0.5em 0em;
+  padding: 20px;
+  border: 4px solid white;
+  border-collapse: collapse;
+  width: 80%;
+  & .text-center {
+    margin: auto;
+    width: 100%;
+    & button {
+      margin: 5px;
+      padding: 10px;
+      text-align: center;
+      border: 4px solid white;
+      color: $yellow-dark;
+      width: 90%;
+      background-color: white;
+      &:hover {
+        color: $yellow-light;
+        background-color: #EDA55C;
+      }
+    }
+  }
+}
+
+#settings-footer {
+  padding : 14px;
+  background-color: #F6F6F6;
+  border: 4px solid white;
+  & p {
+    color: #7E827D;
+  }
+}
+
+#play {
+  padding : 10px;
+  background-color: #F6F6F6;
+  border: 4px solid white;
+  &:hover {
+    background-color: #E6E6E6;
+    cursor: pointer;
+  }
+}
+
+#smiley {
+  position: relative;
+  margin: auto;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+}
+
+.new-game {
+  background: image-url('game.png');
+}
+
+.new-game:hover {
+  background: image-url('heyyy.png');
+}
+
+.winner {
+  background: image-url('winner.png');
+}
+
+.looser {
+  background: image-url('looser.png');
+}
+
+table#minesweeper {
+  margin: auto;
+  margin: 0.5em 0em;
+  border: 4px solid white;
+  border-collapse: collapse;
+}
+
+table#minesweeper tr {
+  margin: 5px;
+}
+
+table#minesweeper td {
+  width: 25px;
+  height: 25px;
+  background-size: cover;
+}
+
+#status-bar {
+  padding : 14px;
+  background-color: #F6F6F6;
+  border: 4px solid white;
+  cursor: pointer;
+  & li {
+    padding: 0px;
+  }
+}
+
+.fa {
+  color: #7E827D;
+  font-size: 20px;
+}
+
+#bomb {
+  float: left;
+  margin-left: 0.7em;
+}
+
+#clock {
+  float: right;
+  margin-right: 0.7em;
+
+}
+
+.clear {
+  clear: both;
+}
