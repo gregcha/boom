@@ -5,7 +5,7 @@
 
 var HEIGHT = 16;
 var WIDTH = 16;
-var MINES = 40;
+var MINES = 1;
 var CELLS = HEIGHT * WIDTH;
 var MINESCOUNT = MINES
 var GAMERUNNING = true;
@@ -201,18 +201,18 @@ $(function() {
 
   function play() {
     $('td').on("click", function() {
-      if (GAMERUNNING) {
-        if ($('td:not(.unopened)')) {
-          $('#time').timer({
-            format: '%M:%S'
-          });
-        }
-        var td = $(this)
-        td.removeClass('unopened');
-        revealNeighbourCells(td);
-        looser(td);
-        winner();
-       };
+      var td = $(this);
+      if (td.hasClass("unopened")) {
+        if (GAMERUNNING) {
+          if ($('td:not(.unopened)')) {
+            $('#time').timer({format: '%M:%S'});
+          }
+          td.removeClass('unopened');
+          revealNeighbourCells(td);
+          looser(td);
+          winner();
+        };
+      };
     });
     $('td').bind("contextmenu",function(){
       if (GAMERUNNING) {
@@ -275,7 +275,6 @@ $(function() {
     WIDTH  = parseInt(btn.match(/col-(\d+)/)[1],10);
     MINES  = parseInt(btn.match(/mines-(\d+)/)[1],10);
     CELLS = HEIGHT * WIDTH;
-    console.log(HEIGHT, WIDTH, MINES)
     MINESCOUNT = MINES
     GAMERUNNING = true;
     generateGrid();
