@@ -5,7 +5,7 @@
 
 var HEIGHT = 16;
 var WIDTH = 16;
-var MINES = 1;
+var MINES = 40;
 var CELLS = HEIGHT * WIDTH;
 var MINESCOUNT = MINES
 var GAMERUNNING = true;
