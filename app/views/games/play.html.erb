@@ -6,7 +6,7 @@
     <div class='text-center' id='settings-header'>
       <p>Select level</p>
     </div>
-    <div id="level">
+    <div id="level" level='Intermediate'>
       <div class='text-center'>
           <button class='new-settings row-9 col-9 mines-10'>Beginner</button>
           <button class='new-settings row-16 col-16 mines-40'>Intermediate</button>
@@ -18,14 +18,61 @@
     </div>
   </div>
 
+  <div class ="rankings-displayed hidden">
+    <div class='rankings-button text-center'>
+      <i class="fa fa-times"></i>
+    </div>
+    <div class='text-center' id='rankings-header'>
+      <p>High Scores</p>
+    </div>
+    <div id='beginners' class='leaderboard hidden'>
+      <table class='rankings'>
+        <% @beginners.each_with_index do |p, i| %>
+          <%= render 'shared/leaderboard', player: p, index: i %>
+        <% end %>
+      </table>
+    </div>
+    <div id='intermediates' class='leaderboard'>
+      <table class='rankings'>
+        <% @intermediates.each_with_index do |p, i| %>
+          <%= render 'shared/leaderboard', player: p, index: i %>
+        <% end %>
+      </table>
+    </div>
+    <div id='experts' class='leaderboard hidden'>
+      <table class='rankings'>
+        <% @experts.each_with_index do |p, i| %>
+          <%= render 'shared/leaderboard', player: p, index: i %>
+        <% end %>
+      </table>
+    </div>
+    <div class='text-center' id='rankings-footer'>
+      <p>made by <%= link_to '@gregcha', 'https://twitter.com/gregcha', target:'blank' %></p>
+    </div>
+  </div>
+
   <div class='game-displayed'>
+    <div class='rankings-button text-center'>
+      <i class="fa fa-star"></i>
+    </div>
     <div class='settings-button text-center'>
       <i class="fa fa-cog"></i>
     </div>
     <div class='text-center' id='play'>
       <div class='new-game' id='smiley'></div>
     </div>
-    <table id="minesweeper"></table>
+    <div class='main'>
+      <div class='score hidden'>
+        <form action="/games" method="post">
+          <p id='new-high-score' class='text-center'>Yeah!!!</p>
+          <input id='your-name' name='game[name]' placeholder='Type your name here'>
+          <input id='your-score' class='hidden' name='game[score]'>
+          <input id='your-level' class='hidden' name='game[level]'>
+          <button id='save-score' type="submit">Save your score</button>
+        </form>
+          <p id='no' class='text-center'>No thanks</p></div>
+      <table id="minesweeper"></table>
+    </div>
     <div id='status-bar'>
       <div id='bomb'>
         <ul class='list-inline'>
@@ -43,6 +90,28 @@
     </div>
   </div>
 
+  <div class='how-to-play'>
+    <div class='text-center'>
+      <a id='how-button' role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">How to play?</a>
+    </div>
+    <div class="collapse" id="collapseExample">
+      <div class="well">
+        <ul>
+          <li><h4>Objective</h4></li>
+          <li><p>Find the empty squares while avoiding the mines. The faster you clear the board, the better your score.</p></li>
+          <li><h4>How to play?</h4></li>
+          <li><p>Uncover a mine, and the game ends.</p></li>
+          <li><p>Uncover an empty square, and you keep playing.</p></li>
+          <li><p>Uncover a number, and it tells you how many mines lay hidden in the eight surrounding squares</p></li>
+          <li><p>Find the empty squares while avoiding the mines. The faster you clear the board, the better your score.</p></li>
+          <li><h4>Hints and tips</h4></li>
+          <li><p>Mark the mines. If you suspect a square conceals a mine, right-click it. This puts a flag on the square.</p></li>
+          <li><p>If you're not sure, right-click again to make it a question mark.</p></li>
+          <li><p>If you play using flags, press right click on a number to open all squares surrounding (the mines around that number have to be marked). That's the fastest way to play Booom.</p></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 

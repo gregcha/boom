@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
   root to: 'games#play'
+  resources :games, only: [:new, :create] do
+  end
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

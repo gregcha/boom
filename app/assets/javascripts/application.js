@@ -5,7 +5,7 @@
 
 var HEIGHT = 16;
 var WIDTH = 16;
-var MINES = 40;
+var MINES = 1;
 var CELLS = HEIGHT * WIDTH;
 var MINESCOUNT = MINES
 var GAMERUNNING = true;
@@ -16,17 +16,18 @@ $(function() {
     var row = 0;
     var column = 0;
     $('.game').css("width", WIDTH*25+'px');
-    $('#level').css("width", WIDTH*25+'px');
     $('#level').css("height", (HEIGHT*25)+4+'px'); //WTF ?? Je ne comprends pas pourquoi je dois ajouter 4px de plus...
+    $('.leaderboard').css("height", (HEIGHT*25)+4+'px');
+    $('.score').css("height", (HEIGHT*25)+4+'px');
     for(var i = 0; i < HEIGHT; i++) {
       row ++;
-      $('table#minesweeper').append("<tr class='row-" + row + "'></tr>");
+      $('#minesweeper').append("<tr class='row-" + row + "'></tr>");
     };
     for(var i = 0; i < WIDTH; i++) {
       column ++;
-      $('table#minesweeper tr').append("<td class='col-" + column + "'></td>");
+      $('#minesweeper tr').append("<td class='col-" + column + "'></td>");
     };
-    $('table#minesweeper tr').each(function() {
+    $('#minesweeper tr').each(function() {
       var tr = $(this);
       var rowColumn = tr.attr('class').match(/row-(\d+)/)[1];
 
@@ -36,7 +37,7 @@ $(function() {
         tr.addClass('row-' + rowColumn);
       });
     });
-    $('td').addClass('unopened');
+    $('#minesweeper td').addClass('unopened');
   };
 
   function setBombcells() {
@@ -52,24 +53,24 @@ $(function() {
       if(!found)array[array.length]=randomNumber;
     };
     $(array).each(function(index, num) {
-      $('td').eq(num).addClass('mine');
+      $('#minesweeper td').eq(num).addClass('mine');
     });
     $('.minescount').html(MINESCOUNT);
   };
 
   function setFreecells() {
-    $('td.mine').each(function(index) {
+    $('#minesweeper td.mine').each(function(index) {
       var tdRow     = parseInt($(this).attr('class').match(/row-(\d+)/)[1],10);
       var tdColumn  = parseInt($(this).attr('class').match(/col-(\d+)/)[1],10);
 
-      var tdNext1 = $('td.row-' + (tdRow - 1) + '.col-' + (tdColumn - 1));
-      var tdNext2 = $('td.row-' + (tdRow - 1) + '.col-' + (tdColumn + 0));
-      var tdNext3 = $('td.row-' + (tdRow - 1) + '.col-' + (tdColumn + 1));
-      var tdNext4 = $('td.row-' + (tdRow + 0) + '.col-' + (tdColumn - 1));
-      var tdNext5 = $('td.row-' + (tdRow + 0) + '.col-' + (tdColumn + 1));
-      var tdNext6 = $('td.row-' + (tdRow + 1) + '.col-' + (tdColumn - 1));
-      var tdNext7 = $('td.row-' + (tdRow + 1) + '.col-' + (tdColumn + 0));
-      var tdNext8 = $('td.row-' + (tdRow + 1) + '.col-' + (tdColumn + 1));
+      var tdNext1 = $('#minesweeper td.row-' + (tdRow - 1) + '.col-' + (tdColumn - 1));
+      var tdNext2 = $('#minesweeper td.row-' + (tdRow - 1) + '.col-' + (tdColumn + 0));
+      var tdNext3 = $('#minesweeper td.row-' + (tdRow - 1) + '.col-' + (tdColumn + 1));
+      var tdNext4 = $('#minesweeper td.row-' + (tdRow + 0) + '.col-' + (tdColumn - 1));
+      var tdNext5 = $('#minesweeper td.row-' + (tdRow + 0) + '.col-' + (tdColumn + 1));
+      var tdNext6 = $('#minesweeper td.row-' + (tdRow + 1) + '.col-' + (tdColumn - 1));
+      var tdNext7 = $('#minesweeper td.row-' + (tdRow + 1) + '.col-' + (tdColumn + 0));
+      var tdNext8 = $('#minesweeper td.row-' + (tdRow + 1) + '.col-' + (tdColumn + 1));
 
       tdNext1.attr('mines', parseInt(tdNext1.attr('mines')) + 1);
       tdNext2.attr('mines', parseInt(tdNext2.attr('mines')) + 1);
@@ -81,10 +82,10 @@ $(function() {
       tdNext8.attr('mines', parseInt(tdNext8.attr('mines')) + 1);
     });
 
-    $('td:not(.mine)').each(function() {
+    $('#minesweeper td:not(.mine)').each(function() {
       $(this).addClass('mine-neighbour-' + parseInt($(this).attr('mines')));
     });
-    $('td').removeAttr('mines');
+    $('#minesweeper td').removeAttr('mines');
   };
 
   function revealNeighbourCells(td) {
@@ -104,7 +105,7 @@ $(function() {
   };
 
   function exploreCell(row, index) {
-    var td = $('td.row-' + row + '.col-' + index + '.unopened');
+    var td = $('#minesweeper td.row-' + row + '.col-' + index + '.unopened');
     td.removeClass('unopened');
     revealNeighbourCells(td);
   };
@@ -114,14 +115,14 @@ $(function() {
     var tdColumn    = parseInt(td.attr('class').match(/col-(\d+)/)[1],10);
     var tdMineCount = parseInt(td.attr('class').match(/mine-neighbour-(\d)/)[1],10);
 
-    var tdNext1 = $('td.row-' + (tdRow - 1) + '.col-' + (tdColumn - 1));
-    var tdNext2 = $('td.row-' + (tdRow - 1) + '.col-' + (tdColumn + 0));
-    var tdNext3 = $('td.row-' + (tdRow - 1) + '.col-' + (tdColumn + 1));
-    var tdNext4 = $('td.row-' + (tdRow + 0) + '.col-' + (tdColumn - 1));
-    var tdNext5 = $('td.row-' + (tdRow + 0) + '.col-' + (tdColumn + 1));
-    var tdNext6 = $('td.row-' + (tdRow + 1) + '.col-' + (tdColumn - 1));
-    var tdNext7 = $('td.row-' + (tdRow + 1) + '.col-' + (tdColumn + 0));
-    var tdNext8 = $('td.row-' + (tdRow + 1) + '.col-' + (tdColumn + 1));
+    var tdNext1 = $('#minesweeper td.row-' + (tdRow - 1) + '.col-' + (tdColumn - 1));
+    var tdNext2 = $('#minesweeper td.row-' + (tdRow - 1) + '.col-' + (tdColumn + 0));
+    var tdNext3 = $('#minesweeper td.row-' + (tdRow - 1) + '.col-' + (tdColumn + 1));
+    var tdNext4 = $('#minesweeper td.row-' + (tdRow + 0) + '.col-' + (tdColumn - 1));
+    var tdNext5 = $('#minesweeper td.row-' + (tdRow + 0) + '.col-' + (tdColumn + 1));
+    var tdNext6 = $('#minesweeper td.row-' + (tdRow + 1) + '.col-' + (tdColumn - 1));
+    var tdNext7 = $('#minesweeper td.row-' + (tdRow + 1) + '.col-' + (tdColumn + 0));
+    var tdNext8 = $('#minesweeper td.row-' + (tdRow + 1) + '.col-' + (tdColumn + 1));
 
     var checker = 0
     if(tdNext1.hasClass('flagged')) {checker++}
@@ -164,24 +165,31 @@ $(function() {
   }
 
   function winner() {
-    if (!$('td:not(.mine)').hasClass('unopened') && !$('td:not(.mine)').hasClass('flagged')) {
-      $('td.mine').removeClass('unopened.mine').addClass('flagged');
+    if (!$('#minesweeper td:not(.mine)').hasClass('unopened') && !$('#minesweeper td:not(.mine)').hasClass('flagged')) {
+      $('#minesweeper td.mine').removeClass('unopened.mine').addClass('flagged');
       $('.minescount').html('0');
       $('#play #smiley').removeClass('game');
       $('#play #smiley').addClass('winner');
       $('#time').timer('pause');
+      $('.score').removeClass('hidden');
+      $('#your-score').attr('value', ($('#time').html()));
+      $('#your-level').attr('value', ($('#level').attr('level')));
+      $('#no').on("click", function() {
+        $('.score').addClass('hidden');
+      });
+
       GAMERUNNING = false;
     };
   };
 
   function looser(td) {
     if ($(td).hasClass('mine')) {
-      $('td.mine').removeClass('unopened');
+      $('#minesweeper td.mine').removeClass('unopened');
       $(td).addClass('boom');
       $('#play #smiley').removeClass('game');
       $('#play #smiley').addClass('looser');
-      $('td.mine').removeClass('unopened');
-      $('td:not(.mine).flagged').addClass('wrongflagged');
+      $('#minesweeper td.mine').removeClass('unopened');
+      $('#minesweeper td:not(.mine).flagged').addClass('wrongflagged');
       $('#time').timer('pause');
       GAMERUNNING = false;
     };
@@ -193,18 +201,18 @@ $(function() {
       $('#play #smiley').removeClass('game');
       $('#play #smiley').addClass('looser');
       $('td.mine').removeClass('unopened');
-      $('td:not(.mine).flagged').addClass('wrongflagged');
+      $('#minesweeper td:not(.mine).flagged').addClass('wrongflagged');
       $('#time').timer('pause');
       GAMERUNNING = false;
     };
   };
 
   function play() {
-    $('td').on("click", function() {
+    $('#minesweeper td').on("click", function() {
       var td = $(this);
       if (td.hasClass("unopened")) {
         if (GAMERUNNING) {
-          if ($('td:not(.unopened)')) {
+          if ($('#minesweeper td:not(.unopened)')) {
             $('#time').timer({format: '%M:%S'});
           }
           td.removeClass('unopened');
@@ -214,7 +222,7 @@ $(function() {
         };
       };
     });
-    $('td').bind("contextmenu",function(){
+    $('#minesweeper td').bind("contextmenu",function(){
       if (GAMERUNNING) {
         var td = $(this)
         if (td.hasClass('unopened')) {
@@ -248,13 +256,32 @@ $(function() {
     });
   };
 
+  function displayRankings(level) {
+    if (level == "Beginner") {
+      $('#beginners').removeClass('hidden');
+      $('#intermediates').addClass('hidden');
+      $('#experts').addClass('hidden');
+    };
+    if (level == "Intermediate") {
+      $('#beginners').addClass('hidden');
+      $('#intermediates').removeClass('hidden');
+      $('#experts').addClass('hidden');
+    };
+    if (level == "Expert") {
+      $('#beginners').addClass('hidden');
+      $('#intermediates').addClass('hidden');
+      $('#experts').removeClass('hidden');
+    };
+  };
+
   $(window).load(generateGrid(), setBombcells(), setFreecells(), play());
 
   $('#play').on('click', function() {
-    $('tr').remove();
+    $('#minesweeper tr').remove();
     $('#play #smiley').removeClass();
     $('#play #smiley').addClass('new-game');
     $('#time').timer('remove').html('00:00');
+    $('.score').addClass('hidden');
     GAMERUNNING = true;
     MINESCOUNT = MINES
     generateGrid();
@@ -264,13 +291,15 @@ $(function() {
   });
 
   $('.new-settings').on('click', function() {
-    $('tr').remove();
+    $('#minesweeper tr').remove();
     $('.settings-displayed').toggleClass('hidden');
     $('.game-displayed').toggleClass('hidden');
     $('#play #smiley').removeClass();
     $('#play #smiley').addClass('new-game');
     $('#time').timer('remove').html('00:00');
     var btn = $(this).attr('class')
+    $('#level').attr('level',$(this).html())
+    displayRankings($(this).html());
     HEIGHT = parseInt(btn.match(/row-(\d+)/)[1],10);
     WIDTH  = parseInt(btn.match(/col-(\d+)/)[1],10);
     MINES  = parseInt(btn.match(/mines-(\d+)/)[1],10);
@@ -281,6 +310,11 @@ $(function() {
     setBombcells();
     setFreecells();
     play();
+  });
+
+  $('.rankings-button').on('click', function() {
+    $('.rankings-displayed').toggleClass('hidden');
+    $('.game-displayed').toggleClass('hidden');
   });
 
   $('.settings-button').on('click', function() {

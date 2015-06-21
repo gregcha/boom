@@ -1,0 +1,64 @@
+.settings-button {
+  position: absolute;
+  right: -15px;
+  top:-15px;
+  padding: 0.2em;
+  background-color: $my-gray-middle;
+  border-radius: 50%;
+  border: 4px solid $my-gray-lightest;
+  &:hover {
+    background-color: $my-gray-dark;
+    cursor: pointer;
+  }
+  & .fa.fa-cog {
+    color: white;
+    margin: 4px;
+    width: 20px;
+  }
+  & .fa.fa-times {
+    color: white;
+    margin: 4px;
+    width: 20px;
+  }
+}
+
+#settings-header {
+  padding : 14px;
+  background-color: $my-gray-lightest;
+  border: 4px solid white;
+  & p {
+    color: $my-gray-dark;
+  }
+}
+
+#level {
+  margin: 0.5em 0em;
+  padding: 20px;
+  border: 4px solid white;
+  & .text-center {
+    margin: auto;
+    width: 100%;
+    & button {
+      margin: 5px;
+      padding: 10px;
+      text-align: center;
+      border: 4px solid white;
+      color: $yellow-dark;
+      width: 90%;
+      background-color: white;
+      &:hover {
+        color: $yellow-light;
+        background-color: $orange;
+      }
+    }
+  }
+}
+
+#settings-footer {
+  padding : 14px;
+  background-color: $my-gray-lightest;
+  border: 4px solid white;
+  & p {
+    color: $my-gray-dark;
+  }
+}
