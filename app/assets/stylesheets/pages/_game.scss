@@ -38,23 +38,6 @@
   background: image-url('looser.png');
 }
 
-table#minesweeper {
-  margin: auto;
-  margin: 0.5em 0em;
-  border: 4px solid white;
-  border-collapse: collapse;
-}
-
-table#minesweeper tr {
-  margin: 5px;
-}
-
-table#minesweeper td {
-  width: 25px;
-  height: 25px;
-  background-size: cover;
-}
-
 #status-bar {
   padding : 14px;
   background-color: $my-gray-lightest;

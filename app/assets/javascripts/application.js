@@ -3,20 +3,71 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
-var HEIGHT = 16;
-var WIDTH = 16;
-var MINES = 40;
-var CELLS = HEIGHT * WIDTH;
-var MINESCOUNT = MINES
-var GAMERUNNING = true;
+var HEIGHT;
+var WIDTH;
+var MINES;
+var CELLS;
+var MINESCOUNT;
+var GAMERUNNING;
 
 $(function() {
+
+  function setLevel() {
+    var redirect = location.search
+    var anchor = window.location.hash
+    if (anchor == "" || anchor == "#Intermediate" || redirect == "?level=Intermediate") {
+      $('#level').attr('level', 'Intermediate');
+      HEIGHT = 16;
+      WIDTH = 16;
+      MINES = 40;
+      window.location.hash = "#Intermediate";
+    }
+    else if (anchor == "#Beginner" || redirect == "?level=Beginner") {
+      $('#level').attr('level', 'Beginner');
+      // HEIGHT = 9;
+      // WIDTH = 9;
+      // MINES = 10;
+      HEIGHT = 9;
+      WIDTH = 9;
+      MINES = 1;
+      window.location.hash = "#Beginner";
+    }
+    else if (anchor == "#Expert" || redirect == "?level=Expert") {
+      $('#level').attr('level', 'Expert');
+      HEIGHT = 16;
+      WIDTH = 30;
+      MINES = 99;
+      window.location.hash = "#Expert";
+    }
+    else {
+    };
+    CELLS = HEIGHT * WIDTH;
+  };
+
+  function displayRankings() {
+    var level = $('#level').attr('level');
+    if (level == "Beginner") {
+      $('#beginners').removeClass('hidden');
+      $('#intermediates').addClass('hidden');
+      $('#experts').addClass('hidden');
+    };
+    if (level == "Intermediate") {
+      $('#beginners').addClass('hidden');
+      $('#intermediates').removeClass('hidden');
+      $('#experts').addClass('hidden');
+    };
+    if (level == "Expert") {
+      $('#beginners').addClass('hidden');
+      $('#intermediates').addClass('hidden');
+      $('#experts').removeClass('hidden');
+    };
+  };
 
   function generateGrid() {
     var row = 0;
     var column = 0;
     $('.game').css("width", WIDTH*25+'px');
-    $('#level').css("height", (HEIGHT*25)+4+'px'); //WTF ?? Je ne comprends pas pourquoi je dois ajouter 4px de plus...
+    $('#level').css("height", (HEIGHT*25)+4+'px');
     $('.leaderboard').css("height", (HEIGHT*25)+4+'px');
     $('.score').css("height", (HEIGHT*25)+4+'px');
     for(var i = 0; i < HEIGHT; i++) {
@@ -33,7 +84,7 @@ $(function() {
 
       tr.find('td').each(function() {
         var tr = $(this);
-        tr.attr('mines', 0)
+        tr.attr('mines', 0);
         tr.addClass('row-' + rowColumn);
       });
     });
@@ -55,6 +106,7 @@ $(function() {
     $(array).each(function(index, num) {
       $('#minesweeper td').eq(num).addClass('mine');
     });
+    MINESCOUNT = MINES
     $('.minescount').html(MINESCOUNT);
   };
 
@@ -125,14 +177,14 @@ $(function() {
     var tdNext8 = $('#minesweeper td.row-' + (tdRow + 1) + '.col-' + (tdColumn + 1));
 
     var checker = 0
-    if(tdNext1.hasClass('flagged')) {checker++}
-    if(tdNext2.hasClass('flagged')) {checker++}
-    if(tdNext3.hasClass('flagged')) {checker++}
-    if(tdNext4.hasClass('flagged')) {checker++}
-    if(tdNext5.hasClass('flagged')) {checker++}
-    if(tdNext6.hasClass('flagged')) {checker++}
-    if(tdNext7.hasClass('flagged')) {checker++}
-    if(tdNext8.hasClass('flagged')) {checker++}
+    if(tdNext1.hasClass('flagged')) {checker++};
+    if(tdNext2.hasClass('flagged')) {checker++};
+    if(tdNext3.hasClass('flagged')) {checker++};
+    if(tdNext4.hasClass('flagged')) {checker++};
+    if(tdNext5.hasClass('flagged')) {checker++};
+    if(tdNext6.hasClass('flagged')) {checker++};
+    if(tdNext7.hasClass('flagged')) {checker++};
+    if(tdNext8.hasClass('flagged')) {checker++};
 
     if (tdMineCount == checker) {
       tdNext1.not('.flagged').removeClass('unopened');
@@ -177,7 +229,6 @@ $(function() {
       $('#no').on("click", function() {
         $('.score').addClass('hidden');
       });
-
       GAMERUNNING = false;
     };
   };
@@ -188,7 +239,6 @@ $(function() {
       $(td).addClass('boom');
       $('#play #smiley').removeClass('game');
       $('#play #smiley').addClass('looser');
-      $('#minesweeper td.mine').removeClass('unopened');
       $('#minesweeper td:not(.mine).flagged').addClass('wrongflagged');
       $('#time').timer('pause');
       GAMERUNNING = false;
@@ -208,6 +258,7 @@ $(function() {
   };
 
   function play() {
+    GAMERUNNING = true;
     $('#minesweeper td').on("click", function() {
       var td = $(this);
       if (td.hasClass("unopened")) {
@@ -256,25 +307,7 @@ $(function() {
     });
   };
 
-  function displayRankings(level) {
-    if (level == "Beginner") {
-      $('#beginners').removeClass('hidden');
-      $('#intermediates').addClass('hidden');
-      $('#experts').addClass('hidden');
-    };
-    if (level == "Intermediate") {
-      $('#beginners').addClass('hidden');
-      $('#intermediates').removeClass('hidden');
-      $('#experts').addClass('hidden');
-    };
-    if (level == "Expert") {
-      $('#beginners').addClass('hidden');
-      $('#intermediates').addClass('hidden');
-      $('#experts').removeClass('hidden');
-    };
-  };
-
-  $(window).load(generateGrid(), setBombcells(), setFreecells(), play());
+  $(window).load(setLevel(), displayRankings(), generateGrid(), setBombcells(), setFreecells(), play());
 
   $('#play').on('click', function() {
     $('#minesweeper tr').remove();
@@ -282,8 +315,6 @@ $(function() {
     $('#play #smiley').addClass('new-game');
     $('#time').timer('remove').html('00:00');
     $('.score').addClass('hidden');
-    GAMERUNNING = true;
-    MINESCOUNT = MINES
     generateGrid();
     setBombcells();
     setFreecells();
@@ -297,15 +328,11 @@ $(function() {
     $('#play #smiley').removeClass();
     $('#play #smiley').addClass('new-game');
     $('#time').timer('remove').html('00:00');
-    var btn = $(this).attr('class')
-    $('#level').attr('level',$(this).html())
-    displayRankings($(this).html());
-    HEIGHT = parseInt(btn.match(/row-(\d+)/)[1],10);
-    WIDTH  = parseInt(btn.match(/col-(\d+)/)[1],10);
-    MINES  = parseInt(btn.match(/mines-(\d+)/)[1],10);
-    CELLS = HEIGHT * WIDTH;
-    MINESCOUNT = MINES
-    GAMERUNNING = true;
+    level = $(this).html();
+    $('#level').attr('level',level);
+    window.location.hash = level;
+    setLevel();
+    displayRankings();
     generateGrid();
     setBombcells();
     setFreecells();
@@ -320,5 +347,23 @@ $(function() {
   $('.settings-button').on('click', function() {
     $('.settings-displayed').toggleClass('hidden');
     $('.game-displayed').toggleClass('hidden');
+  });
+
+  $('#save-score').on('click', function(event){
+    event.preventDefault();
+    var name = "YVON"
+    var score = "00:01"
+    var level = "Beginner"
+    $.ajax({
+      type: "POST",
+      url: "http://booom.herokuapp.com/games",
+      data: {
+        name: name,
+        score: score,
+        level: level
+      },
+      success: function(data) {
+      }
+    });
   });
 });

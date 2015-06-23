@@ -5,9 +5,12 @@
  * already a Bootstrap SCSS variable that does the same job
  * ------------------------------------- */
 
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
 body {
   background-color: #EAEBEB;
-  font-family: 'Montserrat', sans-serif;
 }
 
 h1 {
