@@ -1,9 +1,9 @@
 class GamesController < ApplicationController
-  # def create
-    # @game = Game.new(score_params)
-    # @game.save
-    # redirect_to root_path(level_params)
-  # end
+  def create
+    @game = Game.new(score_params)
+    @game.save
+    redirect_to root_path
+  end
 
   def play
     @beginners = Game.where(level:'Beginner').order(score: :asc).limit(10)
@@ -15,9 +15,5 @@ class GamesController < ApplicationController
 
   def score_params
     params.require(:game).permit(:name, :score, :level)
-  end
-
-  def level_params
-    params.require(:game).permit(:level)
   end
 end

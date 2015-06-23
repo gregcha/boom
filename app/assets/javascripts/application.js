@@ -20,24 +20,18 @@ $(function() {
       HEIGHT = 16;
       WIDTH = 16;
       MINES = 40;
-      window.location.hash = "#Intermediate";
     }
     else if (anchor == "#Beginner" || redirect == "?level=Beginner") {
       $('#level').attr('level', 'Beginner');
-      // HEIGHT = 9;
-      // WIDTH = 9;
-      // MINES = 10;
       HEIGHT = 9;
       WIDTH = 9;
-      MINES = 1;
-      window.location.hash = "#Beginner";
+      MINES = 10;
     }
     else if (anchor == "#Expert" || redirect == "?level=Expert") {
       $('#level').attr('level', 'Expert');
       HEIGHT = 16;
       WIDTH = 30;
       MINES = 99;
-      window.location.hash = "#Expert";
     }
     else {
     };
@@ -349,21 +343,21 @@ $(function() {
     $('.game-displayed').toggleClass('hidden');
   });
 
-  $('#save-score').on('click', function(event){
-    event.preventDefault();
-    var name = "YVON"
-    var score = "00:01"
-    var level = "Beginner"
-    $.ajax({
-      type: "POST",
-      url: "http://booom.herokuapp.com/games",
-      data: {
-        name: name,
-        score: score,
-        level: level
-      },
-      success: function(data) {
-      }
-    });
-  });
+  // $('#save-score').on('click', function(event){
+  //   event.preventDefault();
+  //   var name = "YVON"
+  //   var score = "00:01"
+  //   var level = "Beginner"
+  //   $.ajax({
+  //     type: "POST",
+  //     url: "http://booom.herokuapp.com/games",
+  //     data: {
+  //       name: name,
+  //       score: score,
+  //       level: level
+  //     },
+  //     success: function(data) {
+  //     }
+  //   });
+  // });
 });
