@@ -13,25 +13,24 @@ var GAMERUNNING;
 $(function() {
 
   function setLevel() {
-    var redirect = location.search
     var anchor = window.location.hash
-    if (anchor == "" || anchor == "#Intermediate" || redirect == "?level=Intermediate") {
+    if (anchor == "" || anchor == "#Intermediate") {
       $('#level').attr('level', 'Intermediate');
       HEIGHT = 16;
       WIDTH = 16;
-      MINES = 1;
+      MINES = 40;
     }
-    else if (anchor == "#Beginner" || redirect == "?level=Beginner") {
+    else if (anchor == "#Beginner") {
       $('#level').attr('level', 'Beginner');
       HEIGHT = 9;
       WIDTH = 9;
-      MINES = 1;
+      MINES = 10;
     }
-    else if (anchor == "#Expert" || redirect == "?level=Expert") {
+    else if (anchor == "#Expert") {
       $('#level').attr('level', 'Expert');
       HEIGHT = 16;
       WIDTH = 30;
-      MINES = 1;
+      MINES = 99;
     }
     else {
     };
@@ -351,7 +350,14 @@ $(function() {
   $('#save-score').on('click', function(event){
     event.preventDefault();
     var name = $('#your-name').val();
-    var level = window.location.hash.match(/[a-zA-Z]+/)[0]
+
+    if (window.location.hash == '') {
+      var level = 'Intermediate';
+    }
+    else {
+      var level = window.location.hash.match(/[a-zA-Z]+/)[0];
+    }
+
     var time = $('#time').data('seconds');
     var s = Math.floor(time % 60);
     var m = Math.floor((time / 60) % 60);
