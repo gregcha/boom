@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
-  root to: 'games#play'
-  resources :games, only: [:create] do
-  end
+  root to: 'games#index'
+  resources :games, only: [:index, :create]
+
+  # root to: 'games#play'
+  # resources :games, only: [:create] do
+  # end
 
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -27,23 +27,17 @@
     </div>
     <div id='beginners' class='leaderboard'>
       <table class='rankings'>
-        <% @beginners.each_with_index do |p, i| %>
-          <%= render 'shared/leaderboard', player: p, index: i %>
-        <% end %>
+        <%= render 'shared/beginners', beginners: @beginners %>
       </table>
     </div>
     <div id='intermediates' class='leaderboard'>
       <table class='rankings'>
-        <% @intermediates.each_with_index do |p, i| %>
-          <%= render 'shared/leaderboard', player: p, index: i %>
-        <% end %>
+        <%= render 'shared/intermediates', intermediates: @intermediates %>
       </table>
     </div>
     <div id='experts' class='leaderboard'>
       <table class='rankings'>
-        <% @experts.each_with_index do |p, i| %>
-          <%= render 'shared/leaderboard', player: p, index: i %>
-        <% end %>
+        <%= render 'shared/experts', experts: @experts %>
       </table>
     </div>
     <div class='text-center' id='rankings-footer'>
@@ -63,14 +57,12 @@
     </div>
     <div class='main'>
       <div class='score hidden'>
-        <form action="/games" method="post">
-          <p id='new-high-score' class='text-center'>Yeah!!!</p>
-          <input id='your-name' name='game[name]' placeholder='Type your name here'>
-          <input id='your-score' class='hidden' name='game[score]'>
-          <input id='your-level' class='hidden' name='game[level]'>
-          <button id='save-score' type="submit">Save your score</button>
-        </form>
-          <p id='no' class='text-center'>No thanks</p></div>
+        <%= form_tag do %>
+          <%= text_field_tag 'game[name]', '', placeholder:'Type your name here', id:'your-name' %>
+          <%= submit_tag 'Save your score', id:'save-score' %>
+        <% end %>
+        <p id='no' class='text-center'>No thanks</p>
+      </div>
       <table id="minesweeper"></table>
     </div>
     <div id='status-bar'>

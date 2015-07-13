@@ -19,19 +19,19 @@ $(function() {
       $('#level').attr('level', 'Intermediate');
       HEIGHT = 16;
       WIDTH = 16;
-      MINES = 40;
+      MINES = 1;
     }
     else if (anchor == "#Beginner" || redirect == "?level=Beginner") {
       $('#level').attr('level', 'Beginner');
       HEIGHT = 9;
       WIDTH = 9;
-      MINES = 10;
+      MINES = 1;
     }
     else if (anchor == "#Expert" || redirect == "?level=Expert") {
       $('#level').attr('level', 'Expert');
       HEIGHT = 16;
       WIDTH = 30;
-      MINES = 99;
+      MINES = 1;
     }
     else {
     };
@@ -309,6 +309,8 @@ $(function() {
     $('#play #smiley').addClass('new-game');
     $('#time').timer('remove').html('00:00');
     $('.score').addClass('hidden');
+    $('#your-name').removeClass('error');
+    $('#your-name').attr("placeholder", "Type your name here");
     generateGrid();
     setBombcells();
     setFreecells();
@@ -322,6 +324,9 @@ $(function() {
     $('#play #smiley').removeClass();
     $('#play #smiley').addClass('new-game');
     $('#time').timer('remove').html('00:00');
+    $('.score').addClass('hidden');
+    $('#your-name').removeClass('error');
+    $('#your-name').attr("placeholder", "Type your name here");
     level = $(this).html();
     $('#level').attr('level',level);
     window.location.hash = level;
@@ -343,21 +348,46 @@ $(function() {
     $('.game-displayed').toggleClass('hidden');
   });
 
-  // $('#save-score').on('click', function(event){
-  //   event.preventDefault();
-  //   var name = "YVON"
-  //   var score = "00:01"
-  //   var level = "Beginner"
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "http://booom.herokuapp.com/games",
-  //     data: {
-  //       name: name,
-  //       score: score,
-  //       level: level
-  //     },
-  //     success: function(data) {
-  //     }
-  //   });
-  // });
+  $('#save-score').on('click', function(event){
+    event.preventDefault();
+    var name = $('#your-name').val();
+    var level = window.location.hash.match(/[a-zA-Z]+/)[0]
+    var time = $('#time').data('seconds');
+    var s = Math.floor(time % 60);
+    var m = Math.floor((time / 60) % 60);
+    var h = Math.floor(time / 3600);
+    if (s < 10) {
+      var sec = '0'+ s.toString();
+    }
+    else {
+      var sec = s.toString();
+    }
+    if (m < 10) {
+      var min = '0'+ m.toString();
+    }
+    else {
+      var min = m.toString();
+    }
+    var score = min + ':' + sec;
+
+    if (name == '') {
+      $('#your-name').attr("placeholder", "Don't be shy!");
+      $('#your-name').addClass('error');
+    }
+    else {
+      $.ajax({
+        type: "POST",
+        url: "/games",
+        data: {
+          "game[name]": name,
+          "game[score]": score,
+          "game[level]": level
+        },
+        success: function(data) {
+          $('.score').addClass('hidden');
+        }
+      });
+    };
+  });
+
 });

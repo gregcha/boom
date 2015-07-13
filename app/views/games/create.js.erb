@@ -1,0 +1,6 @@
+$(function() {
+  $('#beginners .rankings').replaceWith("<%= j render 'shared/beginners', beginners: @beginners %>");
+  $('#intermediates .rankings').replaceWith("<%= j render 'shared/intermediates', intermediates: @intermediates %>");
+  $('#experts .rankings').replaceWith("<%= j render 'shared/experts', experts: @experts %>");
+});
+

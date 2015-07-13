@@ -4,17 +4,14 @@ table#minesweeper {
   border: 4px solid white;
   border-collapse: collapse;
 }
-
 table#minesweeper tr {
   margin: 5px;
 }
-
 table#minesweeper td {
   width: 25px;
   height: 25px;
   background-size: cover;
 }
-
 td.mine {
   background: image-url('mine.svg');
 }
@@ -30,11 +27,9 @@ td.mine-neighbour-1 {
 td.mine-neighbour-2 {
   background: image-url('2.svg');
 }
-
 td.mine-neighbour-3 {
   background: image-url('3.svg');
 }
-
 td.mine-neighbour-4 {
   background: image-url('4.svg');
 }
@@ -56,11 +51,13 @@ td.unopened {
 }
 td.flagged {
   background: image-url('flag.svg');
+  cursor: pointer;
 }
 td.wrongflagged {
   background: image-url('not-a-mine.svg');
 }
 td.question {
   background: image-url('question.svg');
+  cursor: pointer;
 }
 
