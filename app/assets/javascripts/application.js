@@ -59,10 +59,6 @@ $(function() {
   function generateGrid() {
     var row = 0;
     var column = 0;
-    $('.game').css("width", WIDTH*25+'px');
-    $('#level').css("height", (HEIGHT*25)+4+'px');
-    $('.leaderboard').css("height", (HEIGHT*25)+4+'px');
-    $('.score').css("height", (HEIGHT*25)+4+'px');
     for(var i = 0; i < HEIGHT; i++) {
       row ++;
       $('#minesweeper').append("<tr class='row-" + row + "'></tr>");
@@ -83,6 +79,25 @@ $(function() {
     });
     $('#minesweeper td').addClass('unopened');
   };
+
+  function setDisplay() {
+    if ($(window).innerWidth() < 780) {
+      var cellsize = ($(window).innerWidth() - 25) / WIDTH;
+      $('table#minesweeper td').css('width', cellsize+'px');
+      $('table#minesweeper td').css('height', cellsize+'px');
+    }
+    else {
+      var cellsize = 25;
+      $('#minesweeper td').css('width', cellsize +'px');
+      $('#minesweeper td').css('height', cellsize +'px');
+    };
+    $('.game').css("width", WIDTH*cellsize +'px');
+    var contentHeight = $('#minesweeper').css('height')
+    $('#level').css("height", contentHeight);
+    $('.leaderboard').css("height", contentHeight);
+    $('.score').css("height", contentHeight);
+    $('.score').css("width", (WIDTH*cellsize - 8) +'px');
+  }
 
   function setBombcells() {
     var array = []
@@ -300,7 +315,7 @@ $(function() {
     });
   };
 
-  $(window).load(setLevel(), displayRankings(), generateGrid(), setBombcells(), setFreecells(), play());
+  $(window).load(setLevel(), displayRankings(), generateGrid(), setDisplay(), setBombcells(), setFreecells(), play());
 
   $('#play').on('click', function() {
     $('#minesweeper tr').remove();
@@ -311,6 +326,7 @@ $(function() {
     $('#your-name').removeClass('error');
     $('#your-name').attr("placeholder", "Type your name here");
     generateGrid();
+    setDisplay();
     setBombcells();
     setFreecells();
     play();
@@ -332,6 +348,7 @@ $(function() {
     setLevel();
     displayRankings();
     generateGrid();
+    setDisplay();
     setBombcells();
     setFreecells();
     play();

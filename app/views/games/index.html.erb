@@ -58,10 +58,11 @@
     <div class='main'>
       <div class='score hidden'>
         <%= form_tag do %>
+          <p id='new-high-score'>Yeah!!!</p>
           <%= text_field_tag 'game[name]', '', placeholder:'Type your name here', id:'your-name' %>
           <%= submit_tag 'Save your score', id:'save-score' %>
+          <p id='no' class='text-center'>No thanks</p>
         <% end %>
-        <p id='no' class='text-center'>No thanks</p>
       </div>
       <table id="minesweeper"></table>
     </div>

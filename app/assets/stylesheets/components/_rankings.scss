@@ -34,6 +34,7 @@
 .leaderboard {
   margin: 0.5em 0em;
   border: 4px solid white;
+  overflow-y: scroll;
   &#beginners table.rankings {
     width: 100%;
     height: 100%;

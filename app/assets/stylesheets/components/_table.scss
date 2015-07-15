@@ -1,63 +1,58 @@
-table#minesweeper {
+.main {
   margin: auto;
   margin: 0.5em 0em;
   border: 4px solid white;
   border-collapse: collapse;
 }
-table#minesweeper tr {
-  margin: 5px;
-}
 table#minesweeper td {
-  width: 25px;
-  height: 25px;
   background-size: cover;
 }
 td.mine {
-  background: image-url('mine.svg');
+  background: image-url('mine.png');
 }
 td.boom {
-  background: image-url('boom.svg');
+  background: image-url('boom.png');
 }
 td.mine-neighbour-0 {
-  background: image-url('0.svg');
+  background: image-url('0.png');
 }
 td.mine-neighbour-1 {
-  background: image-url('1.svg');
+  background: image-url('1.png');
 }
 td.mine-neighbour-2 {
-  background: image-url('2.svg');
+  background: image-url('2.png');
 }
 td.mine-neighbour-3 {
-  background: image-url('3.svg');
+  background: image-url('3.png');
 }
 td.mine-neighbour-4 {
-  background: image-url('4.svg');
+  background: image-url('4.png');
 }
 td.mine-neighbour-5 {
-  background: image-url('5.svg');
+  background: image-url('5.png');
 }
 td.mine-neighbour-6 {
-  background: image-url('6.svg');
+  background: image-url('6.png');
 }
 td.mine-neighbour-7 {
-  background: image-url('7.svg');
+  background: image-url('7.png');
 }
 td.mine-neighbour-8 {
-  background: image-url('8.svg');
+  background: image-url('8.png');
 }
 td.unopened {
-  background: image-url('unopened.svg');
+  background: image-url('unopened.png');
   cursor: pointer;
 }
 td.flagged {
-  background: image-url('flag.svg');
+  background: image-url('flag.png');
   cursor: pointer;
 }
 td.wrongflagged {
-  background: image-url('not-a-mine.svg');
+  background: image-url('not-a-mine.png');
 }
 td.question {
-  background: image-url('question.svg');
+  background: image-url('question.png');
   cursor: pointer;
 }
 
