@@ -25,7 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'simple_form'
-ruby '2.6.5'
+ruby '3.0.0'
 gem 'rails_12factor', group: :production
 gem 'puma',           group: :production
 gem 'responders', '~> 2.0'
